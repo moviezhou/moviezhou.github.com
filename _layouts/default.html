@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset=utf-8 />
-  <title>  不一样的天空 </title>
+  <title> {% if page.title %} {{ page.title }} | {% endif %} 不一样的天空 </title>
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
@@ -21,16 +21,7 @@
       </ul>
     </nav>
  
-    <section role="banner">
-  <img src="/img/banner.jpg" />
-</section>
- 
-<section class="content">
-  <p>
-  Welcome to Not the Same Sky! Please, check out my <a href="/portfolio/">Portfolio</a> to see my work.
-  </p>
-</section>
-
+    {{ content }}
  
     <footer>
       <p>@copy; HKStudio 2012 | All Rights Reserved. </p>
