@@ -1,74 +1,92 @@
-body {
-  font: 16px/1.5 verdana, helvetica-neue, helvetica, arial, san-serif;
-  background: black;
-  color: #ececec;
-  padding: 0;
-  margin: 0;
+@import url(http://fonts.googleapis.com/css?family=Galdeano);
+@import url(http://fonts.googleapis.com/css?family=Electrolize);
+@import url(http://fonts.googleapis.com/css?family=Cuprum);
+
+body{
+	font-size:16px;
+	font-family:"Galdeano","Hiragino Sans GB",
+	"Microsoft YaHei",Trebuchet,"Trebuchet MS",
+	Tahoma,"Lucida Grande","Lucida Sans Unicode",
+	Verdana,sans-serif;
+	color:#000000;
+	background-color:#ffffff;
 }
-ul {
-  margin: 0;
-  padding: 0;
+
+*{
+	padding:0;
+	margin: 0;
+	border:none;
+	outline:none;}
+a{
+	color:#333333;
+	text-decoration:none;
 }
-a {
-  color: #ccc;
-  text-decoration: none;
-}
- 
 a:hover {
-  color: #ececec;
-  text-decoration: underline;
+	color: gray;
+	text-decoration:underline;
+} 
+
+hr{
+	margin:.7em 0;
+	border-top:1px dashed #d0d0d0;
+	border-bottom:1px dashed #f9f9f9;
 }
- 
-#main {
-  width: 960px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.4);
+
+p{
+	padding:.5em 0;
 }
-header {
-  padding: 0 10px;
-  overflow: hidden;
+li{
+	padding:.2em 0;
+	list-style: none;
+}
+ol,ul{
+	list-style-position:inside;
+}
+ol ul, ul ol, ul ul, ol ol {
+	margin-left:1em;
+}
+
+nav{
+  text-transform: uppercase;
+  font-family: "Electrolize",sans-serif;
+  font-size: 1.1em;
+  float: left;
+  margin-left: -12em;
+  width: 9em;
+  text-align: right;
+}
+
+nav a{
+	display:block;
+	padding:.7em 1em;
+	color:#000000;
+}
+nav a:hover {
+	background-color: #D00;
+	text-decoration:none;
+	color: #f9f9f9;
+	-webkit-transition:color .2s linear;
 }
 h1 {
-  margin: 0;
+	font-family: "Cuprum","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+	font-size: 1.6em;
+	color: black;
 }
- 
-nav ul, ul.entries {
-  list-style-type: none;
+#container {
+	width:600px;
+	margin:2em auto;
+	display:block;
+	padding:0 2em;
 }
-nav li a {
-  float: left;
-  margin: 5px;
-}
-.content {
-  padding: 10px;
-}
- 
-ul.entries li {
-  position: relative;
-  margin: 20px auto;
-  padding: 20px;
-  background: #ececec;
-  width: 600px;
-}
- 
-ul.entries img {
-  width: 600px;
-}
- 
-ul.entries li h3 {
-  position: absolute;
-  bottom: -18px;
-  left: 17px;
-  font-size: 2em;
-}
-ul.entries a {
-  color: #ececec;
-}
-ul.entries a:hover {
-  color: #fff;
+article, aside, footer, header, hgroup, nav, section {
+display: block;
 }
  
 footer {
-  font-size: 0.65em;
+  font-size: 0.8em;
   text-align: center;
+}
+p small {
+	font-size: 13px;
+	color: #999;
 }
