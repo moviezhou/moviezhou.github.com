@@ -1,44 +1,19 @@
-<!DOCTYPE html>
-<head>
-  <meta charset=utf-8 />
-  <title>  不一样的天空 </title>
-  <link rel="stylesheet" href="/css/styles.css" />
-</head>
-<body>
- 
-  <div id="main">
- 
-    <header>
-      <h1> 不一样的天空 </h1>
-    <header>
- 
-    <nav role="navigation">
-      <ul id="menu">
-	<li><a href="/">Home</a></li>
-        <li><a href="/portfolio/">Portfolio</a></li>
-        <li><a href="/gallery/">Gallery</a></li>
-        <li><a href="/movieofmylife">Movie Of My Life</li>
-        <li><a href="/keynotes/">Keynotes</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
- 
-    <section role="banner">
-  <img src="/img/banner.jpg" />
-</section>
- 
-<section class="content">
-  <p>
-  Welcome to Not the Same Sky! Please, check out my <a href="/portfolio/">Portfolio</a> to see my work.
-  </p>
-</section>
+---
+title: What's Eating Gilbert Grape
+layout: default
+---
 
- 
-    <footer>
-      <p>@copy; HKStudio 2012 | All Rights Reserved. </p>
-    </footer>
- 
-  </div>
-</body>
-</html>
+<ul class="listing">
+{% for post in site.posts %}
+  {% capture y %}{{post.date | date:"%Y"}}{% endcapture %}
+  {% if year != y %}
+    {% assign year = y %}
+    <li class="listing-seperator">{{ y }}</li>
+  {% endif %}
+  <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+  </li>
+{% endfor %}
+</ul>
+
