@@ -173,6 +173,9 @@ nav a:hover {
 .author {
 	text-align: right;
 }
+.time {
+	text-align: right;
+}
 h1{
 	font-family:"Cuprum","Hiragino Sans GB","Microsoft YaHei",sans-serif;
 	font-size:2.4em;
