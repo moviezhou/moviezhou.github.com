@@ -3,9 +3,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'moviezhousblog'; // required: replace example with your forum shortname
-    / * * * var disqus_url = '{{ site.url }}{{ page.url | remove:'index.html' }}';* * */
+    var disqus_url = '{{ site.url }}{{ page.url | remove:'index.html' }}';
     
-    var disqus_identifier = '{{ page.guid }}';    
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
