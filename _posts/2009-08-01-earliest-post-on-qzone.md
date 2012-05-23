@@ -13,20 +13,20 @@ tags:
 
 原词：　　　　　　　　　　　　　　　　　　　　　　　　　　　 
 Oh Danny Boy, the pipes, the pipes are calling 　　　　　　　　　　
-From glen to glen, and down the mountainside. 　　　　　　　　　    
-The summer's gone, and all the roses falling. 　　　　　　　　　　    
-It's you, It's you must go and I must bide.                                                     
-But come ye back when summer's in the meadow 　　　　　　　　  
+From glen to glen, and down the mountainside
+The summer's gone, and all the roses falling
+It's you, It's you must go and I must bide
+But come ye back when summer's in the meadow
 Or when the valley's hushed and white with snow 　　　　　　　　　 
-For I'll be here in sunshine or in shadow. 　　　　　　　　　　　　   
-Oh Danny Boy, oh Danny Boy, I love you so. 　　　　　　　　　　　 
-But if you come, and all the flowers are dying                                             
-And if I'm dead, as dead I might well be. 　　　　　　　　　　　　   
-Ye'll come and find the place where I am lying 　　　　　　　　　      
-And kneel and say an Ave there for me. 　　　　　　　　　　　　　 
-And I shall hear, though soft you tread above me, 　　　　　　　　　 
-And o'er my grave shall warmer, sweeter be, 　　　　　　　　　　   　　　　　　　　 
-And if you bend and tell me that you love me, 　　　　　　　　　　    
+For I'll be here in sunshine or in shadow
+Oh Danny Boy, oh Danny Boy, I love you so 　　　　　　　　　　　 
+But if you come, and all the flowers are dying
+And if I'm dead, as dead I might well be
+Ye'll come and find the place where I am lying
+And kneel and say an Ave there for me　　　　　　　　　　　　 
+And I shall hear, though soft you tread above me 　　　　　　　　　 
+And o'er my grave shall warmer, sweeter be 　　　　　　　　　　   　　　　　　　　 
+And if you bend and tell me that you love me
 Then I shall sleep in peace until you come to me　　　　　　　　　      　　　　　　　　　　　　
 
 李敖翻译：
