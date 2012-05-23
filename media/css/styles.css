@@ -81,7 +81,6 @@ blockquote p{
 .content{
 	font-size:16px;
 	line-height:24px;
-	margin-top: 2em; 
 }
 .content img{
 	max-width:600px;
@@ -149,7 +148,7 @@ nav a:hover {
 	-webkit-transition:color .2s linear;
 }
 .post{
-	padding:.5em 0em;
+	padding: 1em 0em;
 }
 .post a{
 	color:#dd0000;
