@@ -1,4 +1,6 @@
 markdown: rdiscount
 pygments: true
 permalink: /:year/:month/:day/:title.html
+url: http://moviezhou.github.com
+author: moviezhou 
 name: What's Eating Gilbert Grape
