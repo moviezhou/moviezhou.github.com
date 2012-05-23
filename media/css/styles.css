@@ -170,6 +170,9 @@ nav a:hover {
 .meta span a{
 	margin: 0 .25em;
 }
+.author {
+	text-align: right;
+}
 h1{
 	font-family:"Cuprum","Hiragino Sans GB","Microsoft YaHei",sans-serif;
 	font-size:2.4em;
