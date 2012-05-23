@@ -2,10 +2,10 @@
 layout: default
 ---
 
-<section class="post">
-{{ content }}
-</section>
-<section class="meta">
+<article class="content">
+  <section class="title">
+    <h2>{{page.title}}</h2>
+  </section> 
 <span class="author">
   <a href="http://moviezhou.github.com">{{ site.author }}</a>
 </span>
@@ -44,3 +44,4 @@ $(function(){
   });
 })
 </script>
+</article>
