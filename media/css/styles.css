@@ -69,6 +69,9 @@ blockquote p{
 	margin:0;
 	padding:.5em 0;
 }
+.center{
+	text-align: center;
+}
 #container{
 	width:600px;
 	margin:2em auto;
@@ -78,6 +81,14 @@ blockquote p{
 .content{
 	font-size:16px;
 	line-height:24px;
+}
+.content img{
+	max-width:600px;
+	display:block;
+	margin:4px auto;
+	-webkit-box-shadow:#999 1px 1px 4px;
+	-moz-box-shadow:#999 1px 1px 4px;
+	box-shadow:#999 1px 1px 4px;
 }
 .content h1{
 	padding:.5em 0;
@@ -139,6 +150,26 @@ nav a:hover {
 .post{
 	padding:.5em 0em;
 }
+.post a{
+	color:#dd0000;
+	text-decoration:none;
+}
+.title{
+	text-align: center;
+	margin-top: 3em;
+}
+.title a{
+	color:#dd0000;
+	text-decoration: none;
+}
+.meta{
+	text-align: center;
+	font-size: 14px;
+	color: #c0c0c0;
+}
+.meta span a{
+	margin: 0 .25em;
+}
 h1{
 	font-family:"Cuprum","Hiragino Sans GB","Microsoft YaHei",sans-serif;
 	font-size:2.4em;
@@ -146,7 +177,7 @@ h1{
 }
 h2{
 	font-family:"Cuprum","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-	font-size:1.4em;
+	font-size:1.3em;
 	color:#111;
 }
 h3{
