@@ -27,5 +27,6 @@ tags:
 《JavaScript: The Definitive Guide》 David Flanagan  1%  
 《Introducing HTML5》  Bruce Lawson  41%  
 《Beautiful Code- Leading Programmers Explain How They Think》 Greg Wilson / Andy Oram  1%  
-《Programming Ruby-The Pragmatic Programmers' Guide, Second Edition》  Dave Thomas / Chad Fowler / Andy Hunt  3%  
+《Programming Ruby-The Pragmatic Programmers' Guide, Second Edition》  Dave Thomas / Chad Fowler / Andy Hunt  3%
+《The Debian Administrator's Handbook-Debian Squeeze from Discovery to Mastery》  Raphaël Hertzog / Roland Mas 1%
 
