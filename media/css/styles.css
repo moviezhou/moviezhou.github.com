@@ -135,6 +135,8 @@ nav{
 	float:left;margin-left:-12em;
 	width:9em;
 	text-align:right;
+        position: fixed;
+
 }
 nav a{
 	display:block;
