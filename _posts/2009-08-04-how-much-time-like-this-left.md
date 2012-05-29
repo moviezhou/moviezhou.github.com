@@ -1,5 +1,5 @@
 ---
-title '这样的日子还能过多久？'
+title: '这样的日子还能过多久？'
 layout: post
 tags:
 - Fedora
