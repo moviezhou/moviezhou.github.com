@@ -1,5 +1,5 @@
 ---
-title: 'The fun of the puzzle'
+title: '解迷的乐趣'
 layout: post
 tags:
 - 电影
