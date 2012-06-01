@@ -1,5 +1,5 @@
 ---
-title '一知半解是危险的'
+title: '一知半解是危险的'
 layout: post
 tags:
 - 跑步
