@@ -3,14 +3,30 @@ title: About me
 layout: page
 ---
 ### 关于moviezhou  
-
-挚爱电影，热爱艺术，惜爱朋友，喜爱读书，大爱旅行，泛爱科学，先爱自己->Every single day of my life  
+  
+- 挚爱电影，热爱艺术，惜爱朋友，喜爱读书，大爱旅行，泛爱科学，先爱自己->Every single day of my life  
      
-目前的激励语：  
+- 目前的激励语：  
   
 一个人真正的幸福并不是呆在光明之中，而是从远处凝望光明，朝它奔去，就在那拼命忘我的时间里，才有人生真正的充实。   ————安藤忠雄  
-       
+  
+- 喜欢的Linux发行版： Fedora（做桌面/开发用）、Debian（服务器）、Gentoo（LFS学习）、LinuxMint（第二桌面）  
+
+- 喜欢的编程语言： python、C  
+  
+- 喜欢的电影：见豆瓣五星推荐  
+  
+- 喜欢/觊觎的硬件： MacBook Pro with Retina display、DELL Alienware系列  
+  
+- 喜欢/憧憬的地方：中国杭州、中国香港、中国台湾、北美、欧洲  
+  
 ### 关于本博客  
-    
+  
+如果你使用古典浏览器访问本博客，请下载Chrome或其他现代浏览器。本博客基于Jekyll+Github+HTML5+CSS，CSS修改自http://yihui.name/ 及 http://lhzhang.com/ ，在次表示感谢！域名服务商Namecheap.com 。  
+  
+所有文章内容编排于LinuxMint，使用Git发布。
+  
+      
+
      
      
