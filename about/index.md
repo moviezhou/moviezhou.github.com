@@ -30,7 +30,7 @@ layout: page
     
 如果你使用古典浏览器访问本博客，请下载Chrome或其他现代浏览器。本博客基于Jekyll+Github+HTML5+CSS，CSS修改自http://yihui.name/ 及 http://lhzhang.com/ ，在次表示感谢！域名服务商Namecheap.com 。  
   
-所有文章内容编排于LinuxMint，使用Git发布。  
+所有文章内容编排于Fedora/LinuxMint，使用Git发布。  
   
 ### 联系方式  
   
