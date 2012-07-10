@@ -28,7 +28,7 @@ layout: page
   
 另一层意思： 年华似水，青春易逝，是什么在啃噬Gilbert Grape，也就是什么在啃噬我们。我喜欢吉伯特，他成功诠释了男人的责任，他是我渴望成为的人，不能成为，也要接近，不能接近，以此致敬。  
     
-如果你使用古典浏览器访问本博客，请下载Chrome或其他现代浏览器。本博客基于Jekyll+Github+HTML5+CSS，CSS修改自http://yihui.name/ 及 http://lhzhang.com/ ，在次表示感谢！域名服务商Namecheap.com 。  
+如果你使用古典浏览器访问本博客，请下载Chrome或其他现代浏览器。本博客基于Jekyll+Github+HTML5+CSS，CSS修改自http://yihui.name/ 及 http://lhzhang.com/ ，在此表示感谢！域名服务商Namecheap.com 。  
   
 所有文章内容编排于Fedora/LinuxMint，使用Git发布。  
   
