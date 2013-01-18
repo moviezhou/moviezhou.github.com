@@ -14,7 +14,7 @@ layout: page
   
 - 喜欢的Linux发行版： Fedora（做桌面/开发用）、Debian（服务器）、Gentoo（LFS学习）、LinuxMint（第二桌面）  
 
-- 喜欢的编程语言： python、C、Erlang（蜻蜓点水）  
+- 喜欢的编程语言： python、C、C#、Erlang（蜻蜓点水）  
 
 - 喜欢的搜索引擎： Google、DuckDuckGo  
  
