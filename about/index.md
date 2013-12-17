@@ -12,13 +12,12 @@ layout: page
   
 - 喜欢的电影：见豆瓣五星推荐  
   
-- 喜欢的Linux发行版： Fedora（做桌面/开发用）、Debian（服务器）、Gentoo（LFS学习）、LinuxMint（第二桌面）  
-
-- 喜欢的编程语言： python、C、C#、Erlang（蜻蜓点水）  
+- 使用的Linux发行版： Arch Linux/Fedora（做桌面/开发用）、Debian（服务器）、Gentoo（LFS学习）、ElementaryOS（第二桌面）  
+- 使用的编程语言： Python、C、C#、Scheme（正在学习）、javascript 、HTML5、CSS3  
 
 - 喜欢的搜索引擎： Google、DuckDuckGo  
  
-- 喜欢/觊觎的硬件： MacBook Pro with Retina display、DELL Alienware系列  
+- 使用的装备： MacBook Pro with Retina display（haswell core）  
   
 - 喜欢/憧憬的地方：中国杭州、中国香港、中国台湾、北美、欧洲  
   
