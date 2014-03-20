@@ -13,7 +13,7 @@ layout: page
 - 喜欢的电影：见豆瓣五星推荐  
   
 - 使用的Linux发行版： Arch Linux/Fedora（做桌面/开发用）、Debian（服务器）、Gentoo（LFS学习）、ElementaryOS（第二桌面）  
-- 使用的编程语言： Python、C、C#、Scheme（正在学习）、javascript 、HTML5、CSS3  
+- 使用的编程语言： Python、C、C#、Clojure、F#、Objective-C（正在学习）、Scheme（正在学习）、javascript 、HTML5、CSS3  
 
 - 喜欢的搜索引擎： Google、DuckDuckGo  
  
