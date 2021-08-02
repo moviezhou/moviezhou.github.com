@@ -11,15 +11,8 @@ layout: page
 一个人真正的幸福并不是呆在光明之中，而是从远处凝望光明，朝它奔去，就在那拼命忘我的时间里，才有人生真正的充实。   ————安藤忠雄  
   
 - 喜欢的电影：见豆瓣五星推荐  
-  
-- 使用的Linux发行版： Arch Linux/Fedora（做桌面/开发用）、Debian（服务器）、Gentoo（LFS学习）、ElementaryOS（第二桌面）  
-- 使用的编程语言： Python、C、C#、Clojure、F#、Objective-C（正在学习）、Scheme（正在学习）、javascript 、HTML5、CSS3  
-
-- 喜欢的搜索引擎： Google、DuckDuckGo  
- 
-- 使用的装备： MacBook Pro with Retina display（haswell core）  
-  
-- 喜欢/憧憬的地方：中国杭州、中国香港、中国台湾、北美、欧洲  
+- 懂一点Linux： Fedora、Arch、Debian  
+- 会一点编程语言： Python、C、Rust、Go、C#、Clojure、F#、javascript 
   
 ### 关于本博客    
   
@@ -32,18 +25,8 @@ layout: page
 所有文章内容编排于Fedora/LinuxMint，使用Git发布。  
   
 ### 联系方式  
-  
-- Email： moviezhou@gmail.com  
-  
-- 新浪微博： 周幕卫   http://weibo.com/moviezhou
-  
-- 豆瓣ID： moviezhou   http://www.douban.com/people/moviezhou/
-   
-- Twitter： @moviezhou  
 
-- Facebook: moviezhou
-  
-- G+： 周幕卫  
+- 豆瓣ID： moviezhou   http://www.douban.com/people/moviezhou/
 
      
      
