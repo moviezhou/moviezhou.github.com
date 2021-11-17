@@ -1,0 +1,112 @@
+{
+  "main": {
+    "id": "65d1e2c983e7f2b9",
+    "type": "split",
+    "children": [
+      {
+        "id": "aa216535d4b0a16d",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "_posts/2021-11-17-old-blogs.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "93238cdad28d1e9c",
+    "type": "split",
+    "children": [
+      {
+        "id": "3e3628b6220be13c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "40b461b96e4e8d2e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "82312fc0531fe901",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "63f7b8a834adf185",
+    "type": "split",
+    "children": [
+      {
+        "id": "590fd07c9401bfb2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a384e49fcf2428c7",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "_posts/2021-11-17-old-blogs.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "4c73c83d07b5115a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "_posts/2021-11-17-old-blogs.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "aa216535d4b0a16d",
+  "lastOpenFiles": [
+    "_posts/2021-11-17-old-blogs.md",
+    "_posts/2011-10-10-Psalms-of-repentance.md",
+    "_posts/2012-02-25-Dedicated-Haizi.md",
+    "_posts/2012-02-18-A-dollar-wonderful-coincidence.md",
+    "_posts/2012-02-24-To-My-Best-Friend.md",
+    "_posts/2013-05-14-yet-another-dream.md",
+    "_posts/2012-06-17-whats-wrong-man.md",
+    "_posts/2012-06-08-again-and-again.md",
+    "_posts/2017-11-09-Serve-flask-app-with-uwsgi-and-nginx.md",
+    "_posts/2019-09-30-I-love-autumn.md"
+  ]
+}
