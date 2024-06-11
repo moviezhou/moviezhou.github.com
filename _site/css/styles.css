@@ -2,6 +2,17 @@
 @import url(http://fonts.googleapis.com/css?family=Electrolize);
 @import url(http://fonts.googleapis.com/css?family=Cuprum);
 
+@font-face {
+    font-family: 'source han serif cn';
+    src: local('Source Han Serif CN'),local('Source Han Serif SC'),local('Source Han Serif TC'),local('Source Han Serif TW'),local('Source Han Serif'),local('Noto Serif CJK SC'),local('Songti SC'),local('SimSong'),url(https://cdn.jsdelivr.net/gh/yihui/cron/fonts/SourceHanSerifCN-Regular-yihui.woff2) format('woff2')
+}
+
+@font-face {
+    font-family: fandolkai;
+    src: local('Kaiti'),local('Kaiti SC'),local('STKaiti'),local('楷体'),local('SimKai'),local('AR PL KaitiM GB'),local('DFKai-SB'),local('FandolKai'),url(https://cdn.jsdelivr.net/gh/yihui/cron/fonts/AR-PL-KaitiM-GB-yihui.woff2) format('woff2')
+}
+
+
 body{
 	font-size:16px;
 	font-family:Palatino,palatino linotype,palatino lt std,latin modern roman,'source han serif cn',serif;
