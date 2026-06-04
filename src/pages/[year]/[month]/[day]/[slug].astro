@@ -9,6 +9,7 @@ import {
   formatPostDate,
   tagPath,
   tagSlug,
+  cjkSpacing,
   type BlogPost,
 } from '../../../../lib/posts';
 
@@ -44,8 +45,8 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
 ---
 
 <BaseLayout
-  title={post.data.title}
-  description={post.data.title}
+  title={cjkSpacing(post.data.title)}
+  description={cjkSpacing(post.data.title)}
   showProgress={true}
   ogType="article"
   publishedTime={post.data.date}
@@ -56,7 +57,7 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
   <main class="reading">
     <div class="article-head">
       <a class="backlink" href="/"><span class="arrow">←</span> Back to the journal</a>
-      <h1>{post.data.title}</h1>
+      <h1>{cjkSpacing(post.data.title)}</h1>
       <div class="article-meta">
         <span class="who">{SITE.author}</span>
         <span>{formatPostDate(post.data.date)}</span>
@@ -64,7 +65,7 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
           post.data.tags?.length ? (
             <span class="tags">
               {post.data.tags.slice(0, 3).map((tag) => (
-                <a href={tagPath(tagSlug(tag))}>{tag}</a>
+                <a href={tagPath(tagSlug(tag))}>{cjkSpacing(tag)}</a>
               ))}
             </span>
           ) : null
@@ -81,7 +82,7 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
         prev ? (
           <a href={postPath(prev)} class="prev">
             <span class="lbl">← Previous</span>
-            <span class="t">{prev.data.title}</span>
+            <span class="t">{cjkSpacing(prev.data.title)}</span>
           </a>
         ) : (
           <span></span>
@@ -91,7 +92,7 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
         next ? (
           <a href={postPath(next)} class="next">
             <span class="lbl">Next →</span>
-            <span class="t">{next.data.title}</span>
+            <span class="t">{cjkSpacing(next.data.title)}</span>
           </a>
         ) : (
           <span></span>

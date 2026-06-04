@@ -1,4 +1,11 @@
 import type { CollectionEntry } from 'astro:content';
+import pangu from 'pangu';
+
+/** 盘古之白：中英文混排自动加空格（用于模板中的标题、标签等） */
+export function cjkSpacing(text: string): string {
+  if (!text?.trim()) return text;
+  return pangu.spacing(text);
+}
 
 export const SITE = {
   name: "What's Eating Gilbert Grape",

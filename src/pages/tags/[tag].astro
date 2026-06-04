@@ -11,6 +11,7 @@ import {
   primaryTag,
   publishedPosts,
   tagFromSlug,
+  cjkSpacing,
   type BlogPost,
 } from '../../lib/posts';
 
@@ -41,14 +42,14 @@ const posts = postsForTag(publishedPosts(await getCollection('blog')), slug);
 ---
 
 <BaseLayout
-  title={`Tag · ${label}`}
-  description={`${label} 相关的 ${posts.length} 篇文章`}
+  title={`Tag · ${cjkSpacing(label)}`}
+  description={`${cjkSpacing(label)} 相关的 ${posts.length} 篇文章`}
   canonicalPath={`/tags/${slug}.html`}
 >
   <Header slot="header" />
   <main class="reading">
     <PageHeader
-      title={label}
+      title={cjkSpacing(label)}
       subtitle={`${posts.length} entries`}
       backHref="/tags.html"
       backLabel="All tags"
@@ -60,7 +61,7 @@ const posts = postsForTag(publishedPosts(await getCollection('blog')), slug);
           {posts.map((post: BlogPost) => (
             <a class="post-row" href={postPath(post)}>
               <span class="date">{formatListDate(post.data.date)}</span>
-              <span class="title">{post.data.title}</span>
+              <span class="title">{cjkSpacing(post.data.title)}</span>
               <span class="tag">{primaryTag(post.data.tags)}</span>
             </a>
           ))}

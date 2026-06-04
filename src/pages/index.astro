@@ -10,6 +10,7 @@ import {
   formatListDate,
   primaryTag,
   yearRange,
+  cjkSpacing,
   type BlogPost,
 } from '../lib/posts';
 
@@ -56,7 +57,7 @@ const featured =
               {groups.get(year)?.map((post: BlogPost) => (
                 <a class="post-row" href={postPath(post)}>
                   <span class="date">{formatListDate(post.data.date)}</span>
-                  <span class="title">{post.data.title}</span>
+                  <span class="title">{cjkSpacing(post.data.title)}</span>
                   <span class="tag">{primaryTag(post.data.tags)}</span>
                 </a>
               ))}
@@ -73,7 +74,7 @@ const featured =
             <div class="mono">§ From the shelf · {featured.data.date.getFullYear()}</div>
             <blockquote>我们仰望星空，是因为我们曾经属于那里。</blockquote>
             <a class="byline" href={postPath(featured)}>
-              Read “{featured.data.title}” <span class="arrow">→</span>
+              Read “{cjkSpacing(featured.data.title)}” <span class="arrow">→</span>
             </a>
           </div>
         </section>

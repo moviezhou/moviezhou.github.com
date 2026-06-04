@@ -76,6 +76,25 @@ body {
   transition: background .4s ease, color .4s ease;
 }
 
+/* 中英文混排：构建时 remark-pangu + 浏览器 text-autospace */
+.prose,
+.hero h1,
+.hero .lede,
+.post-row .title,
+.article-head h1,
+.section-head h2,
+.feature blockquote,
+.linkcard h3,
+.linkcard p,
+.tag-chip .label,
+.pagefind-host .pagefind-ui__result-title,
+.pagefind-host .pagefind-ui__result-excerpt,
+.pagefind-host .pagefind-ui__message,
+.ext-title,
+.ext-desc {
+  text-autospace: normal;
+}
+
 ::selection { background: var(--accent); color: var(--bg); }
 
 a { color: inherit; text-decoration: none; }

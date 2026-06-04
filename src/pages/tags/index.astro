@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import { collectTags, publishedPosts, tagPath } from '../../lib/posts';
+import { collectTags, publishedPosts, tagPath, cjkSpacing } from '../../lib/posts';
 
 const posts = publishedPosts(await getCollection('blog'));
 const tags = collectTags(posts);
@@ -24,7 +24,7 @@ const tags = collectTags(posts);
         <div class="tag-cloud">
           {tags.map((tag) => (
             <a class="tag-chip" href={tagPath(tag.slug)}>
-              <span class="label">{tag.label}</span>
+              <span class="label">{cjkSpacing(tag.label)}</span>
               <span class="count">{tag.count}</span>
             </a>
           ))}

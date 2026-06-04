@@ -10,6 +10,7 @@ import {
   postPath,
   primaryTag,
   publishedPosts,
+  cjkSpacing,
   type BlogPost,
 } from '../../lib/posts';
 
@@ -31,7 +32,7 @@ const posts = getFilmPosts(publishedPosts(await getCollection('blog')));
           {posts.map((post: BlogPost) => (
             <a class="post-row" href={postPath(post)}>
               <span class="date">{formatListDate(post.data.date)}</span>
-              <span class="title">{post.data.title}</span>
+              <span class="title">{cjkSpacing(post.data.title)}</span>
               <span class="tag">{primaryTag(post.data.tags)}</span>
             </a>
           ))}

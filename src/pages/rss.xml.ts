@@ -1,6 +1,6 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
-import { SITE, postPath } from '../lib/posts';
+import { SITE, postPath, cjkSpacing } from '../lib/posts';
 
 export async function GET(context: { site: URL | undefined }) {
   const posts = (await getCollection('blog')).sort(
@@ -12,7 +12,7 @@ export async function GET(context: { site: URL | undefined }) {
     description: SITE.description,
     site: context.site ?? 'https://moviezhou.github.io',
     items: posts.map((post) => ({
-      title: post.data.title,
+      title: cjkSpacing(post.data.title),
       pubDate: post.data.date,
       link: postPath(post),
     })),

@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import remarkPangu from 'remark-pangu';
 
 function rehypeLazyImages() {
   return (tree) => {
@@ -28,6 +29,16 @@ export default defineConfig({
     format: 'file',
   },
   markdown: {
+    remarkPlugins: [
+      [
+        remarkPangu,
+        {
+          inlineCode: false,
+          link: true,
+          image: true,
+        },
+      ],
+    ],
     rehypePlugins: [rehypeLazyImages],
     shikiConfig: {
       themes: {
