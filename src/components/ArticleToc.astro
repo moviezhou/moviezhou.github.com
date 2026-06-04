@@ -1,0 +1,78 @@
+---
+import { cjkSpacing } from '../lib/posts';
+
+export interface TocHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: TocHeading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  items.length > 0 && (
+    <aside class="article-toc" aria-label="Table of contents">
+      <p class="article-toc__label">In this essay</p>
+      <nav class="article-toc__nav">
+        <ul>
+          {items.map((h) => (
+            <li class:list={['article-toc__item', { 'is-h3': h.depth === 3 }]}>
+              <a href={`#${h.slug}`} data-toc-slug={h.slug}>
+                {cjkSpacing(h.text)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+  )
+}
+
+<script>
+  const nav = document.querySelector('.article-toc__nav');
+  if (nav) {
+    const links = [...nav.querySelectorAll('a[data-toc-slug]')];
+    const sections = links
+      .map((a) => document.getElementById(a.dataset.tocSlug ?? ''))
+      .filter((el) => el instanceof HTMLElement);
+
+    if (sections.length) {
+      const offset = 96;
+
+      function setActive(id) {
+        links.forEach((a) => a.classList.toggle('is-active', a.dataset.tocSlug === id));
+      }
+
+      function update() {
+        const y = window.scrollY + offset;
+        let current = sections[0].id;
+        for (const el of sections) {
+          if (el.offsetTop <= y) current = el.id;
+        }
+        setActive(current);
+      }
+
+      let ticking = false;
+      addEventListener(
+        'scroll',
+        () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(() => {
+              update();
+              ticking = false;
+            });
+          }
+        },
+        { passive: true },
+      );
+      update();
+    }
+  }
+</script>

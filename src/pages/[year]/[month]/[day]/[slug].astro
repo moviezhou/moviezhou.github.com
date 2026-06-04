@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Header from '../../../../components/Header.astro';
 import Footer from '../../../../components/Footer.astro';
+import ArticleToc from '../../../../components/ArticleToc.astro';
 import {
   SITE,
   postPath,
@@ -34,7 +35,9 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const hasToc = tocHeadings.length > 0;
 
 const chronological = (await getCollection('blog')).sort(
   (a, b) => a.data.date.getTime() - b.data.date.getTime(),
@@ -54,7 +57,7 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
 >
   <Header slot="header" />
 
-  <main class="reading">
+  <main class:list={['reading', { 'has-toc': hasToc }]}>
     <div class="article-head">
       <a class="backlink" href="/"><span class="arrow">←</span> Back to the journal</a>
       <h1>{cjkSpacing(post.data.title)}</h1>
@@ -73,9 +76,12 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
       </div>
     </div>
 
-    <article class="prose">
-      <Content />
-    </article>
+    <div class="article-body">
+      <article class="prose">
+        <Content />
+      </article>
+      {hasToc ? <ArticleToc headings={tocHeadings} /> : null}
+    </div>
 
     <nav class="pager">
       {
