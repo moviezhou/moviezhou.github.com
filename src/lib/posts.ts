@@ -26,12 +26,18 @@ export interface TagSummary {
 
 const FILM_PATTERN = /film|movie|电影|影评|interstellar|truman|cove|楚门/i;
 
+/**
+ * URL-safe, single-segment slug for a tag. Astro 6 routes can't carry a raw
+ * `/` (or other URL-significant chars) in one dynamic segment, so collapse them
+ * to hyphens. CJK and plain letters are kept readable. The original tag label
+ * is passed via props for display/matching, so this need not be reversible.
+ */
 export function tagSlug(tag: string): string {
-  return encodeURIComponent(tag.trim());
-}
-
-export function tagFromSlug(slug: string): string {
-  return decodeURIComponent(slug);
+  return tag
+    .trim()
+    .replace(/[\s/\\%#?&]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 export function tagPath(slug: string): string {
@@ -57,10 +63,10 @@ export function collectTags(posts: BlogPost[]): TagSummary[] {
   );
 }
 
-export function postsForTag(posts: BlogPost[], slug: string): BlogPost[] {
+export function postsForTag(posts: BlogPost[], label: string): BlogPost[] {
   return posts
     .filter((post) =>
-      (post.data.tags ?? []).some((tag) => tagSlug(tag) === slug),
+      (post.data.tags ?? []).some((tag) => tag.trim() === label),
     )
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }

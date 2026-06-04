@@ -10,25 +10,25 @@ import {
   postsForTag,
   primaryTag,
   publishedPosts,
-  tagFromSlug,
+  tagSlug,
   cjkSpacing,
   type BlogPost,
 } from '../../lib/posts';
 
 export async function getStaticPaths() {
   const posts = publishedPosts(await getCollection('blog'));
-  const slugs = new Set<string>();
+  const labels = new Set<string>();
 
   for (const post of posts) {
     for (const tag of post.data.tags ?? []) {
       const label = tag.trim();
-      if (label) slugs.add(encodeURIComponent(label));
+      if (label) labels.add(label);
     }
   }
 
-  return [...slugs].map((slug) => ({
-    params: { tag: slug },
-    props: { label: tagFromSlug(slug) },
+  return [...labels].map((label) => ({
+    params: { tag: tagSlug(label) },
+    props: { label },
   }));
 }
 
@@ -37,14 +37,13 @@ interface Props {
 }
 
 const { label } = Astro.props;
-const slug = Astro.params.tag!;
-const posts = postsForTag(publishedPosts(await getCollection('blog')), slug);
+const posts = postsForTag(publishedPosts(await getCollection('blog')), label);
 ---
 
 <BaseLayout
   title={`Tag · ${cjkSpacing(label)}`}
   description={`${cjkSpacing(label)} 相关的 ${posts.length} 篇文章`}
-  canonicalPath={`/tags/${slug}.html`}
+  canonicalPath={`/tags/${tagSlug(label)}.html`}
 >
   <Header slot="header" />
   <main class="reading">
