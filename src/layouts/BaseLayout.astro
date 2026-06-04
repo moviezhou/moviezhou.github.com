@@ -9,6 +9,7 @@ interface Props {
   ogType?: 'website' | 'article';
   publishedTime?: Date;
   noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -19,11 +20,17 @@ const {
   ogType = 'website',
   publishedTime,
   noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://moviezhou.github.io');
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, site);
 const fullTitle = title === "What's Eating Gilbert Grape" ? title : `${title} â€” moviezhou`;
+
+// Escape `<` so JSON-LD can't break out of the <script> context.
+const jsonLdText = jsonLd
+  ? JSON.stringify(jsonLd).replace(/</g, '\\u003c')
+  : null;
 ---
 
 <!doctype html>
@@ -67,6 +74,7 @@ const fullTitle = title === "What's Eating Gilbert Grape" ? title : `${title} â€
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <link rel="alternate" type="application/rss+xml" title="moviezhou RSS" href="/rss.xml" />
+    {jsonLdText ? <script type="application/ld+json" set:html={jsonLdText} /> : null}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

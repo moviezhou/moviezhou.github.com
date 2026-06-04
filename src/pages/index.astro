@@ -19,9 +19,27 @@ const groups = groupPostsByYear(posts);
 const years = [...groups.keys()].sort((a, b) => b - a);
 const featured =
   posts.find((p) => p.data.legacySlug === 'Review-of-Interstellar') ?? posts[0];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    alternateName: SITE.author,
+    url: SITE.url,
+    description: SITE.description,
+    inLanguage: 'zh-CN',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: SITE.author,
+    url: SITE.url,
+  },
+];
 ---
 
-<BaseLayout title={SITE.name} description={SITE.description}>
+<BaseLayout title={SITE.name} description={SITE.description} jsonLd={jsonLd}>
   <Header slot="header" />
 
   <main>

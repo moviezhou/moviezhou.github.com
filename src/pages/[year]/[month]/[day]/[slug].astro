@@ -51,6 +51,21 @@ const more = relatedPosts(post, allPosts);
 const index = chronological.findIndex((p) => p.id === post.id);
 const prev = index > 0 ? chronological[index - 1] : null;
 const next = index < chronological.length - 1 ? chronological[index + 1] : null;
+
+const articleUrl = new URL(postPath(post), SITE.url).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  datePublished: post.data.date.toISOString(),
+  author: { '@type': 'Person', name: SITE.author, url: SITE.url },
+  publisher: { '@type': 'Person', name: SITE.author, url: SITE.url },
+  mainEntityOfPage: articleUrl,
+  url: articleUrl,
+  inLanguage: 'zh-CN',
+  wordCount: words,
+  ...(post.data.tags?.length ? { keywords: post.data.tags.join(', ') } : {}),
+};
 ---
 
 <BaseLayout
@@ -60,6 +75,7 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
   ogType="article"
   publishedTime={post.data.date}
   canonicalPath={postPath(post)}
+  jsonLd={jsonLd}
 >
   <Header slot="header" />
 

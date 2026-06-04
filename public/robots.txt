@@ -1,0 +1,23 @@
+# moviezhou.github.io
+
+# Default: allow all crawlers, including AI/LLM bots.
+User-agent: *
+Allow: /
+
+# --- AI / LLM crawler policy ---------------------------------------------
+# This site WELCOMES AI crawlers by default. To opt OUT of any of them,
+# uncomment the matching block below (User-agent + Disallow: /).
+#
+# OpenAI (ChatGPT browsing / training):       GPTBot, OAI-SearchBot, ChatGPT-User
+# Anthropic (Claude):                          ClaudeBot, Claude-Web, anthropic-ai
+# Google AI (Gemini training / extended):      Google-Extended
+# Perplexity:                                  PerplexityBot
+# Common Crawl (used by many models):          CCBot
+# Apple / ByteDance / Amazon:                  Applebot-Extended, Bytespider, Amazonbot
+#
+# Example (block OpenAI training bot):
+# User-agent: GPTBot
+# Disallow: /
+# -------------------------------------------------------------------------
+
+Sitemap: https://moviezhou.github.io/sitemap-index.xml
