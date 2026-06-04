@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHeader from '../../components/PageHeader.astro';
+---
+
+<BaseLayout title="About" description="关于 moviezhou 和这个博客" canonicalPath="/about.html">
+  <Header slot="header" />
+  <main class="reading">
+    <PageHeader title="About" />
+
+    <article class="prose">
+      <h2>关于 moviezhou</h2>
+      <p>
+        周幕卫：挚爱电影，热爱艺术，惜爱朋友，喜爱读书，大爱旅行，泛爱科学，先爱自己。
+      </p>
+      <blockquote>
+        一个人真正的幸福并不是呆在光明之中，而是从远处凝望光明，朝它奔去，就在那拼命忘我的时间里，才有人生真正的充实。——安藤忠雄
+      </blockquote>
+      <ul>
+        <li>喜欢的电影：见豆瓣五星推荐</li>
+        <li>懂一点 Linux：Fedora、Arch、Debian</li>
+        <li>会一点编程语言：Python、C、Rust、Go、C#、Clojure、F#、JavaScript</li>
+      </ul>
+
+      <h2>关于本博客</h2>
+      <p>
+        以 “What's Eating Gilbert Grape” 作为博客名字，足以见得我对此部电影的热爱。导演莱塞·霍尔斯道姆，主演约翰尼·德普、莱昂纳多·迪卡普里奥。
+      </p>
+      <p>
+        另一层意思：年华似水，青春易逝，是什么在啃噬 Gilbert Grape，也就是什么在啃噬我们。我喜欢吉伯特，他成功诠释了男人的责任——不能成为，也要接近；不能接近，以此致敬。
+      </p>
+      <p>
+        本站已从 Jekyll 迁移至 Astro，保留原有文章链接。所有文章仍可通过原来的 <code>/YYYY/MM/DD/slug.html</code> 地址访问。
+      </p>
+
+      <h2>联系方式</h2>
+      <p>
+        豆瓣：<a href="https://www.douban.com/people/moviezhou/" target="_blank" rel="noopener noreferrer">moviezhou</a>
+      </p>
+    </article>
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { collectTags, publishedPosts, tagPath } from '../../lib/posts';
+
+const posts = publishedPosts(await getCollection('blog'));
+const tags = collectTags(posts);
+---
+
+<BaseLayout
+  title="Tags"
+  description="按主题浏览 moviezhou 博客文章"
+  canonicalPath="/tags.html"
+>
+  <Header slot="header" />
+  <main class="reading">
+    <PageHeader title="Tags" subtitle={`${tags.length} topics · ${posts.length} entries`} />
+
+    {
+      tags.length ? (
+        <div class="tag-cloud">
+          {tags.map((tag) => (
+            <a class="tag-chip" href={tagPath(tag.slug)}>
+              <span class="label">{tag.label}</span>
+              <span class="count">{tag.count}</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="empty-state">还没有标签。给文章加上 tags 后会自动出现在这里。</p>
+      )
+    }
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+const home = Astro.url.pathname === '/';
+---
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="/"><span class="dot"></span>moviezhou</a>
+  <nav class="nav">
+    <a href="/" class="persist">Home</a>
+    <a href={home ? '#writing' : '/#writing'}>Writing</a>
+    <a href="/about.html">About</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/rss.xml">RSS</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+      </svg>
+    </button>
+  </nav>
+</header>

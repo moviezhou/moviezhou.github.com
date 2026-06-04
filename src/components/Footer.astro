@@ -1,0 +1,15 @@
+---
+import { SITE } from '../lib/posts';
+const year = new Date().getFullYear();
+---
+
+<footer class="wrap foot">
+  <div>
+    <div class="sig">{SITE.name}</div>
+    <div class="meta">Powered by Astro · redesigned 2026</div>
+  </div>
+  <div class="meta" style="text-align:right">
+    © 2009–{year} {SITE.author}<br />
+    Beijing · China
+  </div>
+</footer>

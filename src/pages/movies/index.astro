@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import {
+  formatListDate,
+  getFilmPosts,
+  postPath,
+  primaryTag,
+  publishedPosts,
+  type BlogPost,
+} from '../../lib/posts';
+
+const posts = getFilmPosts(publishedPosts(await getCollection('blog')));
+---
+
+<BaseLayout
+  title="Movies"
+  description="看过的电影与零散的影评"
+  canonicalPath="/movies.html"
+>
+  <Header slot="header" />
+  <main class="reading">
+    <PageHeader title="Movies" subtitle={`${posts.length} film notes & reviews`} />
+
+    {
+      posts.length ? (
+        <div class="posts compact-list">
+          {posts.map((post: BlogPost) => (
+            <a class="post-row" href={postPath(post)}>
+              <span class="date">{formatListDate(post.data.date)}</span>
+              <span class="title">{post.data.title}</span>
+              <span class="tag">{primaryTag(post.data.tags)}</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="empty-state">还没有影评。带「电影」标签的文章会自动出现在这里。</p>
+      )
+    }
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>

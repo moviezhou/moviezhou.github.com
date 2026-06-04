@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import {
+  SITE,
+  groupPostsByYear,
+  postPath,
+  formatListDate,
+  primaryTag,
+  yearRange,
+  type BlogPost,
+} from '../lib/posts';
+
+const posts = (await getCollection('blog')).filter((p) => !p.data.title.startsWith('draft'));
+const groups = groupPostsByYear(posts);
+const years = [...groups.keys()].sort((a, b) => b - a);
+const featured =
+  posts.find((p) => p.data.legacySlug === 'Review-of-Interstellar') ?? posts[0];
+---
+
+<BaseLayout title={SITE.name} description={SITE.description}>
+  <Header slot="header" />
+
+  <main>
+    <section class="hero wrap">
+      <div class="kicker mono">
+        <span>§</span> A commonplace book, kept in public <span class="rule"></span> Beijing
+      </div>
+      <h1>What's Eating <em>Gilbert</em> Grape</h1>
+      <p class="lede">
+        moviezhou 的私人笔记本 —— 关于电影、诗歌、生活与代码的随笔。自 2009 年起断续记录，如今重新打开，写给会思考的机器的时代。
+      </p>
+
+      <dl class="stats">
+        <div class="stat"><dt>Since</dt><dd>{SITE.since}</dd></div>
+        <div class="stat"><dt>Essays</dt><dd>{posts.length}</dd></div>
+        <div class="stat"><dt>Languages</dt><dd>中文 · <small>English</small></dd></div>
+        <div class="stat"><dt>On</dt><dd>诗 · 影 · 生活</dd></div>
+      </dl>
+    </section>
+
+    <section class="section wrap" id="writing">
+      <div class="section-head">
+        <span class="num">§ 01</span>
+        <h2>The journal</h2>
+        <span class="aside mono">{posts.length} entries · {yearRange(posts)}</span>
+      </div>
+
+      {
+        years.map((year) => (
+          <div class="year-group reveal">
+            <div class="year-label">{year}</div>
+            <div class="posts">
+              {groups.get(year)?.map((post: BlogPost) => (
+                <a class="post-row" href={postPath(post)}>
+                  <span class="date">{formatListDate(post.data.date)}</span>
+                  <span class="title">{post.data.title}</span>
+                  <span class="tag">{primaryTag(post.data.tags)}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    {
+      featured && (
+        <section class="section wrap reveal">
+          <div class="feature">
+            <div class="mono">§ From the shelf · {featured.data.date.getFullYear()}</div>
+            <blockquote>我们仰望星空，是因为我们曾经属于那里。</blockquote>
+            <a class="byline" href={postPath(featured)}>
+              Read “{featured.data.title}” <span class="arrow">→</span>
+            </a>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="section wrap" id="elsewhere">
+      <div class="section-head">
+        <span class="num">§ 02</span>
+        <h2>Elsewhere</h2>
+      </div>
+      <div class="linkgrid">
+        <a class="linkcard reveal" href="/about.html"><span class="lc-num">01</span><h3>About</h3><p>关于我，以及这个博客的来历。</p></a>
+        <a class="linkcard reveal" href="/gallery.html"><span class="lc-num">02</span><h3>Gallery</h3><p>影像与碎片，未经整理的视觉。</p></a>
+        <a class="linkcard reveal" href="/movies.html"><span class="lc-num">03</span><h3>Movies</h3><p>看过的电影与零散的影评。</p></a>
+        <a class="linkcard reveal" href="/tags.html"><span class="lc-num">04</span><h3>Tags</h3><p>按主题浏览：诗、影、代码、生活。</p></a>
+        <a class="linkcard reveal" href="/links.html"><span class="lc-num">05</span><h3>Links</h3><p>朋友们与值得一读的地方。</p></a>
+        <a class="linkcard reveal" href="/rss.xml"><span class="lc-num">06</span><h3>RSS</h3><p>订阅更新，老派而可靠。</p></a>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

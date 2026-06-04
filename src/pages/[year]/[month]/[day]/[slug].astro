@@ -1,0 +1,113 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+import {
+  SITE,
+  postPath,
+  formatPostDate,
+  tagPath,
+  tagSlug,
+  type BlogPost,
+} from '../../../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => {
+    const d = post.data.date;
+    return {
+      params: {
+        year: String(d.getFullYear()),
+        month: String(d.getMonth() + 1).padStart(2, '0'),
+        day: String(d.getDate()).padStart(2, '0'),
+        slug: post.data.legacySlug,
+      },
+      props: { post },
+    };
+  });
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const chronological = (await getCollection('blog')).sort(
+  (a, b) => a.data.date.getTime() - b.data.date.getTime(),
+);
+const index = chronological.findIndex((p) => p.id === post.id);
+const prev = index > 0 ? chronological[index - 1] : null;
+const next = index < chronological.length - 1 ? chronological[index + 1] : null;
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.title}
+  showProgress={true}
+  ogType="article"
+  publishedTime={post.data.date}
+  canonicalPath={postPath(post)}
+>
+  <Header slot="header" />
+
+  <main class="reading">
+    <div class="article-head">
+      <a class="backlink" href="/"><span class="arrow">←</span> Back to the journal</a>
+      <h1>{post.data.title}</h1>
+      <div class="article-meta">
+        <span class="who">{SITE.author}</span>
+        <span>{formatPostDate(post.data.date)}</span>
+        {
+          post.data.tags?.length ? (
+            <span class="tags">
+              {post.data.tags.slice(0, 3).map((tag) => (
+                <a href={tagPath(tagSlug(tag))}>{tag}</a>
+              ))}
+            </span>
+          ) : null
+        }
+      </div>
+    </div>
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    <nav class="pager">
+      {
+        prev ? (
+          <a href={postPath(prev)} class="prev">
+            <span class="lbl">← Previous</span>
+            <span class="t">{prev.data.title}</span>
+          </a>
+        ) : (
+          <span></span>
+        )
+      }
+      {
+        next ? (
+          <a href={postPath(next)} class="next">
+            <span class="lbl">Next →</span>
+            <span class="t">{next.data.title}</span>
+          </a>
+        ) : (
+          <span></span>
+        )
+      }
+    </nav>
+    <p class="kbd-hint mono">Use <kbd>J</kbd> / <kbd>K</kbd> or <kbd>←</kbd> <kbd>→</kbd> to navigate</p>
+  </main>
+
+  <Footer slot="footer" />
+
+  <script slot="scripts" define:vars={{ prevUrl: prev ? postPath(prev) : null, nextUrl: next ? postPath(next) : null }}>
+    addEventListener('keydown', (e) => {
+      if (e.target.matches('input,textarea')) return;
+      if (['ArrowLeft', 'j', 'J'].includes(e.key) && prevUrl) location.href = prevUrl;
+      if (['ArrowRight', 'k', 'K'].includes(e.key) && nextUrl) location.href = nextUrl;
+    });
+  </script>
+</BaseLayout>

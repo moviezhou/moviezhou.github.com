@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Page not found" description="找不到这个页面" noindex={true}>
+  <Header slot="header" />
+  <main class="reading">
+    <div class="article-head">
+      <a class="backlink" href="/"><span class="arrow">←</span> Back to the journal</a>
+      <h1>404</h1>
+      <p class="page-sub mono">This page wandered off.</p>
+    </div>
+    <article class="prose">
+      <p>你要找的页面不存在，可能已被移动或链接已过期。</p>
+      <p><a href="/">回到首页</a>，或从 <a href="/tags.html">标签</a> 开始浏览。</p>
+    </article>
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  showProgress?: boolean;
+  canonicalPath?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: Date;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'moviezhou 的个人博客 · 随笔、诗歌、影评 · since 2009',
+  showProgress = false,
+  canonicalPath,
+  ogType = 'website',
+  publishedTime,
+  noindex = false,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://moviezhou.github.io');
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, site);
+const fullTitle = title === "What's Eating Gilbert Grape" ? title : `${title} — moviezhou`;
+---
+
+<!doctype html>
+<html lang="zh" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="author" content="moviezhou" />
+    {noindex ? <meta name="robots" content="noindex" /> : null}
+    <title>{fullTitle}</title>
+    <link rel="canonical" href={canonical.href} />
+    <meta property="og:site_name" content="moviezhou" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="zh_CN" />
+    {publishedTime ? (
+      <meta property="article:published_time" content={publishedTime.toISOString()} />
+    ) : null}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title="moviezhou RSS" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body>
+    {showProgress && <div class="progress" id="progress"></div>}
+    <slot name="header" />
+    <slot />
+    <slot name="footer" />
+    <script is:inline>
+      const tb = document.getElementById('topbar');
+      if (tb) {
+        addEventListener('scroll', () => tb.classList.toggle('is-stuck', scrollY > 8));
+      }
+
+      const tt = document.getElementById('themeToggle');
+      const setTheme = (t) => {
+        document.documentElement.dataset.theme = t;
+        localStorage.setItem('theme', t);
+      };
+      setTheme(localStorage.getItem('theme') || 'light');
+      tt?.addEventListener('click', () =>
+        setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'),
+      );
+
+      const pr = document.getElementById('progress');
+      if (pr) {
+        addEventListener('scroll', () => {
+          const h = document.documentElement.scrollHeight - innerHeight;
+          pr.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+        });
+      }
+
+      const io = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+    <slot name="scripts" />
+  </body>
+</html>

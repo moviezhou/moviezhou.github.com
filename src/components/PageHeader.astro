@@ -1,0 +1,21 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  title,
+  subtitle,
+  backHref = '/',
+  backLabel = 'Back to the journal',
+} = Astro.props;
+---
+
+<div class="article-head">
+  <a class="backlink" href={backHref}><span class="arrow">←</span> {backLabel}</a>
+  <h1>{title}</h1>
+  {subtitle ? <p class="page-sub mono">{subtitle}</p> : null}
+</div>

@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import {
+  formatListDate,
+  postPath,
+  postsForTag,
+  primaryTag,
+  publishedPosts,
+  tagFromSlug,
+  type BlogPost,
+} from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = publishedPosts(await getCollection('blog'));
+  const slugs = new Set<string>();
+
+  for (const post of posts) {
+    for (const tag of post.data.tags ?? []) {
+      const label = tag.trim();
+      if (label) slugs.add(encodeURIComponent(label));
+    }
+  }
+
+  return [...slugs].map((slug) => ({
+    params: { tag: slug },
+    props: { label: tagFromSlug(slug) },
+  }));
+}
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+const slug = Astro.params.tag!;
+const posts = postsForTag(publishedPosts(await getCollection('blog')), slug);
+---
+
+<BaseLayout
+  title={`Tag · ${label}`}
+  description={`${label} 相关的 ${posts.length} 篇文章`}
+  canonicalPath={`/tags/${slug}.html`}
+>
+  <Header slot="header" />
+  <main class="reading">
+    <PageHeader
+      title={label}
+      subtitle={`${posts.length} entries`}
+      backHref="/tags.html"
+      backLabel="All tags"
+    />
+
+    {
+      posts.length ? (
+        <div class="posts compact-list">
+          {posts.map((post: BlogPost) => (
+            <a class="post-row" href={postPath(post)}>
+              <span class="date">{formatListDate(post.data.date)}</span>
+              <span class="title">{post.data.title}</span>
+              <span class="tag">{primaryTag(post.data.tags)}</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="empty-state">这个标签下还没有文章。</p>
+      )
+    }
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>

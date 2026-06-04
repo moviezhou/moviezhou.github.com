@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { EXTERNAL_LINKS } from '../../data/links';
+---
+
+<BaseLayout title="Links" description="朋友们与值得一读的地方" canonicalPath="/links.html">
+  <Header slot="header" />
+  <main class="reading">
+    <PageHeader title="Links" subtitle="Friends & places worth visiting" />
+
+    <div class="ext-links">
+      {
+        EXTERNAL_LINKS.map((link, index) => (
+          <a
+            class="ext-link reveal"
+            href={link.url}
+            {...(link.url.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            <span class="ext-num mono">{String(index + 1).padStart(2, '0')}</span>
+            <span class="ext-body">
+              <span class="ext-title">{link.title}</span>
+              <span class="ext-desc">{link.description}</span>
+            </span>
+            <span class="ext-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>
