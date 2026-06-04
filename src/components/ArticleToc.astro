@@ -43,14 +43,16 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
       .filter((el) => el instanceof HTMLElement);
 
     if (sections.length) {
-      /** Extra px below scroll-margin so a heading at the reading line still counts */
+      /** Extra px below the reading line so a heading sitting there still counts. */
       const SLACK = 72;
-      let navLock = null;
+      /** While locked, ignore scroll-driven updates (e.g. during smooth scroll). */
+      let locked = false;
+      let unlockTimer = 0;
 
-      function scrollMargin() {
+      function readingLine() {
         const topbar = document.getElementById('topbar');
         const bar = topbar?.getBoundingClientRect().height ?? 0;
-        return Math.max(bar + 16, 90);
+        return Math.max(bar + 16, 90) + SLACK;
       }
 
       function setActive(id) {
@@ -58,52 +60,42 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
       }
 
       function updateFromScroll() {
-        if (navLock) return;
-        const line = scrollMargin();
+        if (locked) return;
+        const line = readingLine();
         let current = sections[0].id;
         for (const el of sections) {
-          if (el.getBoundingClientRect().top <= line + SLACK) current = el.id;
+          if (el.getBoundingClientRect().top <= line) current = el.id;
         }
         setActive(current);
       }
 
-      function syncFromHash() {
-        const id = decodeURIComponent(location.hash.replace(/^#/, ''));
-        if (id && sections.some((el) => el.id === id)) {
-          setActive(id);
-          return;
-        }
-        updateFromScroll();
+      function lockTo(id) {
+        locked = true;
+        setActive(id);
+        clearTimeout(unlockTimer);
+        // Backstop in case scrollend never fires (heading already in view).
+        unlockTimer = setTimeout(release, 700);
       }
 
-      function releaseNavLock() {
-        navLock = null;
-        syncFromHash();
+      function release() {
+        clearTimeout(unlockTimer);
+        locked = false;
+        updateFromScroll();
       }
 
       links.forEach((a) => {
         a.addEventListener('click', () => {
           const id = a.dataset.tocSlug;
-          if (!id) return;
-          navLock = id;
-          setActive(id);
-          if (!('onscrollend' in window)) {
-            setTimeout(releaseNavLock, 500);
-          }
+          if (id) lockTo(id);
         });
       });
 
       addEventListener('hashchange', () => {
-        navLock = null;
-        syncFromHash();
+        const id = decodeURIComponent(location.hash.replace(/^#/, ''));
+        if (id && sections.some((el) => el.id === id)) lockTo(id);
       });
 
-      if ('onscrollend' in window) {
-        addEventListener('scrollend', () => {
-          if (navLock) releaseNavLock();
-          else updateFromScroll();
-        });
-      }
+      addEventListener('scrollend', release);
 
       let ticking = false;
       addEventListener(
@@ -120,7 +112,9 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
         { passive: true },
       );
 
-      syncFromHash();
+      const initial = decodeURIComponent(location.hash.replace(/^#/, ''));
+      if (initial && sections.some((el) => el.id === initial)) lockTo(initial);
+      else updateFromScroll();
     }
   }
 </script>
