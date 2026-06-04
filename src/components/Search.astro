@@ -1,0 +1,97 @@
+---
+---
+
+<button
+  type="button"
+  class="search-toggle"
+  id="searchToggle"
+  aria-label="搜索文章"
+  aria-haspopup="dialog"
+  aria-controls="searchDialog"
+>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="M20 20l-3.5-3.5"></path>
+  </svg>
+  <span class="search-label">Search</span>
+</button>
+
+<dialog class="search-dialog" id="searchDialog" aria-labelledby="searchDialogTitle">
+  <div class="search-dialog-inner">
+    <div class="search-dialog-head">
+      <h2 id="searchDialogTitle" class="mono">Search the journal</h2>
+      <button type="button" class="search-close" id="searchClose" aria-label="关闭搜索">×</button>
+    </div>
+    <div id="pagefind-ui" class="pagefind-host"></div>
+    <p class="search-hint mono" id="searchHint" hidden>本地开发模式暂无索引，请运行 <code>npm run build && npm run preview</code> 体验搜索。</p>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('searchDialog');
+  const toggle = document.getElementById('searchToggle');
+  const closeBtn = document.getElementById('searchClose');
+  const host = document.getElementById('pagefind-ui');
+  const hint = document.getElementById('searchHint');
+
+  const openSearch = () => {
+    if (!dialog) return;
+    dialog.showModal();
+    const input = dialog.querySelector('.pagefind-ui__search-input, input');
+    if (input instanceof HTMLInputElement) {
+      requestAnimationFrame(() => input.focus());
+    }
+  };
+
+  const closeSearch = () => dialog?.close();
+
+  toggle?.addEventListener('click', openSearch);
+  closeBtn?.addEventListener('click', closeSearch);
+
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) closeSearch();
+  });
+
+  addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+  });
+
+  const loadPagefind = () =>
+    new Promise((resolve, reject) => {
+      // @ts-expect-error global from pagefind-ui.js
+      if (window.PagefindUI) {
+        resolve(window.PagefindUI);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = '/pagefind/pagefind-ui.js';
+      script.async = true;
+      script.onload = () => {
+        // @ts-expect-error global from pagefind-ui.js
+        if (window.PagefindUI) resolve(window.PagefindUI);
+        else reject(new Error('PagefindUI missing'));
+      };
+      script.onerror = () => reject(new Error('pagefind script missing'));
+      document.head.appendChild(script);
+    });
+
+  fetch('/pagefind/pagefind-ui.js', { method: 'HEAD' })
+    .then((res) => {
+      if (!res.ok) throw new Error('missing');
+      return loadPagefind();
+    })
+    .then((PagefindUI) => {
+      new PagefindUI({
+        element: '#pagefind-ui',
+        showImages: false,
+        resetStyles: false,
+      });
+    })
+    .catch(() => {
+      hint?.removeAttribute('hidden');
+      host?.setAttribute('hidden', '');
+    });
+</script>

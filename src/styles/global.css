@@ -702,12 +702,163 @@ img { max-width: 100%; display: block; }
   font-style: italic; color: var(--ink); font-size: 22px;
 }
 .prose pre {
-  background: var(--ink); color: #f3ead9; border-radius: 12px;
-  padding: 22px 24px; overflow-x: auto; font-family: var(--mono); font-size: 14px; line-height: 1.6;
+  border-radius: 12px;
+  padding: 22px 24px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
   margin: 1.8em 0;
+  border: 1px solid var(--line);
+}
+.prose pre:not(.astro-code) {
+  background: var(--ink);
+  color: #f3ead9;
+}
+.prose pre.astro-code {
+  background: var(--surface);
+  padding: 1.25rem 1.35rem;
+}
+.prose .astro-code span {
+  color: var(--shiki-light) !important;
+}
+[data-theme='dark'] .prose .astro-code span {
+  color: var(--shiki-dark) !important;
 }
 .prose code { font-family: var(--mono); font-size: .85em; background: var(--card); padding: 2px 6px; border-radius: 5px; color: var(--accent); }
 .prose pre code { background: none; padding: 0; color: inherit; }
+.prose :not(pre) > code { color: var(--accent); }
+
+/* ===========================================================
+   SEARCH (Pagefind)
+   =========================================================== */
+.search-toggle {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-muted);
+  border-radius: 100px;
+  padding: 6px 12px 6px 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.search-toggle svg { width: 15px; height: 15px; }
+.search-toggle:hover,
+.search-toggle:focus-visible {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--card-warm) 50%, transparent);
+}
+.search-label { display: none; }
+@media (min-width: 900px) {
+  .search-label { display: inline; }
+}
+
+.search-dialog {
+  border: 0;
+  padding: 0;
+  margin: auto;
+  max-width: min(640px, calc(100vw - 2 * var(--gut)));
+  width: 100%;
+  background: transparent;
+}
+.search-dialog::backdrop {
+  background: color-mix(in srgb, var(--ink) 35%, transparent);
+  backdrop-filter: blur(4px);
+}
+.search-dialog-inner {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  box-shadow: 0 28px 60px -32px rgba(45, 40, 35, .35);
+}
+.search-dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.search-dialog-head h2 {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.search-close {
+  border: 1px solid var(--line);
+  background: transparent;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink-muted);
+}
+.search-close:hover { border-color: var(--accent); color: var(--accent); }
+.search-hint {
+  margin: 12px 0 0;
+  font-size: 11px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+.search-hint code {
+  font-family: var(--mono);
+  font-size: 10px;
+  background: var(--card);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.pagefind-host .pagefind-ui,
+.pagefind-host .pagefind-ui__form,
+.pagefind-host .pagefind-ui__search-input {
+  width: 100%;
+}
+.pagefind-host .pagefind-ui__search-input {
+  font-family: var(--serif);
+  font-size: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: var(--bg);
+  color: var(--ink);
+}
+.pagefind-host .pagefind-ui__search-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pagefind-host .pagefind-ui__result {
+  border-top: 1px solid var(--line-soft);
+  padding: 14px 0;
+}
+.pagefind-host .pagefind-ui__result-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink);
+}
+.pagefind-host .pagefind-ui__result-excerpt {
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+.pagefind-host mark {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--ink);
+}
+
+@media (max-width: 680px) {
+  .search-toggle { padding: 8px; }
+  .search-toggle .search-label { display: none; }
+}
 .prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.6em 0; }
 .prose img { border-radius: 12px; margin: 2em 0; }
 

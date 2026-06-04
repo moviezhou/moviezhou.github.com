@@ -1,10 +1,13 @@
 ---
+import Search from './Search.astro';
+
 const home = Astro.url.pathname === '/';
 ---
 
 <header class="topbar" id="topbar">
   <a class="brand" href="/"><span class="dot"></span>moviezhou</a>
   <nav class="nav">
+    <Search />
     <a href="/" class="persist">Home</a>
     <a href={home ? '#writing' : '/#writing'}>Writing</a>
     <a href="/about.html">About</a>
