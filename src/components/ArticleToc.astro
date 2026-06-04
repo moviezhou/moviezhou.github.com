@@ -45,9 +45,14 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
     if (sections.length) {
       /** Extra px below the reading line so a heading sitting there still counts. */
       const SLACK = 72;
-      /** While locked, ignore scroll-driven updates (e.g. during smooth scroll). */
+      /**
+       * When the user clicks a TOC link the page smooth-scrolls; those scroll
+       * events would otherwise drag the highlight back to a previous heading
+       * (especially near the page bottom, where the target can't reach the top).
+       * So we lock the highlight on click and only release on a genuine
+       * user-initiated scroll gesture.
+       */
       let locked = false;
-      let unlockTimer = 0;
 
       function readingLine() {
         const topbar = document.getElementById('topbar');
@@ -59,28 +64,33 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
         links.forEach((a) => a.classList.toggle('is-active', a.dataset.tocSlug === id));
       }
 
-      function updateFromScroll() {
-        if (locked) return;
+      function currentByScroll() {
         const line = readingLine();
+        const doc = document.documentElement;
+        const atBottom = window.innerHeight + window.scrollY >= doc.scrollHeight - 4;
         let current = sections[0].id;
         for (const el of sections) {
-          if (el.getBoundingClientRect().top <= line) current = el.id;
+          const top = el.getBoundingClientRect().top;
+          if (top <= line) current = el.id;
+          else if (atBottom && top <= window.innerHeight) current = el.id;
         }
-        setActive(current);
+        return current;
+      }
+
+      function updateFromScroll() {
+        if (!locked) setActive(currentByScroll());
       }
 
       function lockTo(id) {
         locked = true;
         setActive(id);
-        clearTimeout(unlockTimer);
-        // Backstop in case scrollend never fires (heading already in view).
-        unlockTimer = setTimeout(release, 700);
       }
 
-      function release() {
-        clearTimeout(unlockTimer);
-        locked = false;
-        updateFromScroll();
+      function unlock() {
+        if (locked) {
+          locked = false;
+          updateFromScroll();
+        }
       }
 
       links.forEach((a) => {
@@ -95,7 +105,13 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
         if (id && sections.some((el) => el.id === id)) lockTo(id);
       });
 
-      addEventListener('scrollend', release);
+      // Genuine user-driven scrolling releases the lock.
+      addEventListener('wheel', unlock, { passive: true });
+      addEventListener('touchstart', unlock, { passive: true });
+      addEventListener('keydown', (e) => {
+        const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ', 'Spacebar'];
+        if (keys.includes(e.key)) unlock();
+      });
 
       let ticking = false;
       addEventListener(
