@@ -43,20 +43,45 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
       .filter((el) => el instanceof HTMLElement);
 
     if (sections.length) {
-      const offset = 96;
+      /** Match .prose h2/h3 scroll-margin-top */
+      const scrollOffset = 90;
 
       function setActive(id) {
         links.forEach((a) => a.classList.toggle('is-active', a.dataset.tocSlug === id));
       }
 
-      function update() {
-        const y = window.scrollY + offset;
+      function headingDocTop(el) {
+        return el.getBoundingClientRect().top + window.scrollY;
+      }
+
+      function updateFromScroll() {
+        const probe = window.scrollY + scrollOffset + 2;
         let current = sections[0].id;
         for (const el of sections) {
-          if (el.offsetTop <= y) current = el.id;
+          if (headingDocTop(el) <= probe) current = el.id;
         }
         setActive(current);
       }
+
+      function syncFromHash() {
+        const id = decodeURIComponent(location.hash.replace(/^#/, ''));
+        if (id && sections.some((el) => el.id === id)) setActive(id);
+        else updateFromScroll();
+      }
+
+      links.forEach((a) => {
+        a.addEventListener('click', () => {
+          const id = a.dataset.tocSlug;
+          if (id) {
+            setActive(id);
+            requestAnimationFrame(() => {
+              requestAnimationFrame(updateFromScroll);
+            });
+          }
+        });
+      });
+
+      addEventListener('hashchange', syncFromHash);
 
       let ticking = false;
       addEventListener(
@@ -65,14 +90,15 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
           if (!ticking) {
             ticking = true;
             requestAnimationFrame(() => {
-              update();
+              updateFromScroll();
               ticking = false;
             });
           }
         },
         { passive: true },
       );
-      update();
+
+      syncFromHash();
     }
   }
 </script>
