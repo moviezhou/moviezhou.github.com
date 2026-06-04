@@ -5,7 +5,12 @@ import Footer from '../../components/Footer.astro';
 import PageHeader from '../../components/PageHeader.astro';
 ---
 
-<BaseLayout title="Gallery" description="影像与碎片，未经整理的视觉" canonicalPath="/gallery.html">
+<BaseLayout
+  title="Gallery"
+  description="影像与碎片，未经整理的视觉"
+  canonicalPath="/gallery.html"
+  noindex={true}
+>
   <Header slot="header" />
   <main class="reading">
     <PageHeader title="Gallery" subtitle="Fragments & stills" />

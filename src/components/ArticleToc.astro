@@ -13,31 +13,51 @@ interface Props {
 
 const { headings } = Astro.props;
 const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const showMobile = items.length >= 2;
 ---
 
 {
   items.length > 0 && (
-    <aside class="article-toc" aria-label="Table of contents">
-      <p class="article-toc__label">In this essay</p>
-      <nav class="article-toc__nav">
-        <ul>
-          {items.map((h) => (
-            <li class:list={['article-toc__item', { 'is-h3': h.depth === 3 }]}>
-              <a href={`#${h.slug}`} data-toc-slug={h.slug}>
-                {cjkSpacing(h.text)}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </aside>
+    <>
+      {
+        showMobile ? (
+          <details class="article-toc-mobile">
+            <summary class="article-toc__label">In this essay</summary>
+            <nav class="article-toc__nav" aria-label="Table of contents">
+              <ul>
+                {items.map((h) => (
+                  <li class:list={['article-toc__item', { 'is-h3': h.depth === 3 }]}>
+                    <a href={`#${h.slug}`} data-toc-slug={h.slug}>
+                      {cjkSpacing(h.text)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </details>
+        ) : null
+      }
+      <aside class="article-toc" aria-label="Table of contents">
+        <p class="article-toc__label">In this essay</p>
+        <nav class="article-toc__nav">
+          <ul>
+            {items.map((h) => (
+              <li class:list={['article-toc__item', { 'is-h3': h.depth === 3 }]}>
+                <a href={`#${h.slug}`} data-toc-slug={h.slug}>
+                  {cjkSpacing(h.text)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+    </>
   )
 }
 
 <script>
-  const nav = document.querySelector('.article-toc__nav');
-  if (nav) {
-    const links = [...nav.querySelectorAll('a[data-toc-slug]')];
+  const links = [...document.querySelectorAll('a[data-toc-slug]')];
+  if (links.length) {
     const sections = links
       .map((a) => document.getElementById(a.dataset.tocSlug ?? ''))
       .filter((el) => el instanceof HTMLElement);

@@ -4,6 +4,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Header from '../../../../components/Header.astro';
 import Footer from '../../../../components/Footer.astro';
 import ArticleToc from '../../../../components/ArticleToc.astro';
+import RelatedPosts from '../../../../components/RelatedPosts.astro';
 import {
   SITE,
   postPath,
@@ -12,6 +13,7 @@ import {
   tagSlug,
   cjkSpacing,
   readingStats,
+  relatedPosts,
   type BlogPost,
 } from '../../../../lib/posts';
 
@@ -41,9 +43,11 @@ const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const hasToc = tocHeadings.length > 0;
 const { words, minutes } = readingStats(post.body ?? '');
 
-const chronological = (await getCollection('blog')).sort(
+const allPosts = await getCollection('blog');
+const chronological = allPosts.sort(
   (a, b) => a.data.date.getTime() - b.data.date.getTime(),
 );
+const more = relatedPosts(post, allPosts);
 const index = chronological.findIndex((p) => p.id === post.id);
 const prev = index > 0 ? chronological[index - 1] : null;
 const next = index < chronological.length - 1 ? chronological[index + 1] : null;
@@ -85,6 +89,8 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
       </article>
       {hasToc ? <ArticleToc headings={tocHeadings} /> : null}
     </div>
+
+    <RelatedPosts posts={more} />
 
     <nav class="pager">
       {

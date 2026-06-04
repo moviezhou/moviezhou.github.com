@@ -1,0 +1,32 @@
+---
+import {
+  cjkSpacing,
+  formatListDate,
+  postPath,
+  primaryTag,
+  type BlogPost,
+} from '../lib/posts';
+
+interface Props {
+  posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="related" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="related__title">More to read</h2>
+      <div class="related__list">
+        {posts.map((p) => (
+          <a class="related__item" href={postPath(p)}>
+            <span class="related__date">{formatListDate(p.data.date)}</span>
+            <span class="related__headline">{cjkSpacing(p.data.title)}</span>
+            <span class="related__tag">{primaryTag(p.data.tags)}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}

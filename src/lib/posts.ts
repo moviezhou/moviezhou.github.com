@@ -156,6 +156,46 @@ export function readingStats(body: string): ReadingStats {
   return { words, minutes };
 }
 
+/** Posts that share tags with `post`, then fill with recent entries if needed. */
+export function relatedPosts(
+  post: BlogPost,
+  posts: BlogPost[],
+  limit = 3,
+): BlogPost[] {
+  const currentTags = new Set(
+    (post.data.tags ?? []).map((t) => t.trim()).filter(Boolean),
+  );
+  const pool = publishedPosts(posts).filter((p) => p.id !== post.id);
+
+  const scored = pool.map((p) => {
+    const overlap = (p.data.tags ?? []).filter((t) => currentTags.has(t.trim())).length;
+    return { post: p, overlap };
+  });
+
+  scored.sort((a, b) => {
+    if (b.overlap !== a.overlap) return b.overlap - a.overlap;
+    return b.post.data.date.getTime() - a.post.data.date.getTime();
+  });
+
+  const picked: BlogPost[] = [];
+  const seen = new Set<string>();
+  for (const { post: candidate, overlap } of scored) {
+    if (picked.length >= limit) break;
+    if (overlap > 0 && !seen.has(candidate.id)) {
+      picked.push(candidate);
+      seen.add(candidate.id);
+    }
+  }
+  for (const { post: candidate } of scored) {
+    if (picked.length >= limit) break;
+    if (!seen.has(candidate.id)) {
+      picked.push(candidate);
+      seen.add(candidate.id);
+    }
+  }
+  return picked;
+}
+
 export function yearRange(posts: BlogPost[]): string {
   if (!posts.length) return '';
   const years = posts.map((p) => p.data.date.getFullYear());

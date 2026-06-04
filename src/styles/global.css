@@ -760,17 +760,140 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
 }
 
+.article-toc-mobile {
+  display: none;
+}
+
+.article-toc-mobile summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.article-toc-mobile summary::-webkit-details-marker {
+  display: none;
+}
+
+.article-toc-mobile summary::after {
+  content: '+';
+  float: right;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+
+.article-toc-mobile[open] summary::after {
+  content: '−';
+}
+
+.related {
+  max-width: var(--read-measure);
+  margin: 48px 0 8px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+
+.related__title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 20px;
+  font-weight: 400;
+}
+
+.related__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.related__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px 18px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: padding-left .2s ease, background .2s ease;
+}
+
+.related__item:first-child {
+  padding-top: 0;
+}
+
+.related__item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.related__item:hover {
+  padding-left: 12px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--card) 60%, transparent), transparent 70%);
+}
+
+.related__date {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: var(--ink-muted);
+}
+
+.related__headline {
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.related__item:hover .related__headline {
+  color: var(--accent);
+}
+
+.related__tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 3px 10px;
+}
+
 @media (max-width: 1080px) {
   .reading.has-toc {
     max-width: var(--read-shell);
   }
 
   .article-body {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
   .article-toc {
     display: none;
+  }
+
+  .article-toc-mobile {
+    display: block;
+    order: -1;
+    margin-bottom: 8px;
+    padding: 0 0 12px;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 600px) {
+  .related__item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .related__tag {
+    justify-self: start;
   }
 }
 
