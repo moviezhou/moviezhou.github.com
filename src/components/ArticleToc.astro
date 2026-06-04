@@ -43,45 +43,67 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
       .filter((el) => el instanceof HTMLElement);
 
     if (sections.length) {
-      /** Match .prose h2/h3 scroll-margin-top */
-      const scrollOffset = 90;
+      /** Extra px below scroll-margin so a heading at the reading line still counts */
+      const SLACK = 72;
+      let navLock = null;
+
+      function scrollMargin() {
+        const topbar = document.getElementById('topbar');
+        const bar = topbar?.getBoundingClientRect().height ?? 0;
+        return Math.max(bar + 16, 90);
+      }
 
       function setActive(id) {
         links.forEach((a) => a.classList.toggle('is-active', a.dataset.tocSlug === id));
       }
 
-      function headingDocTop(el) {
-        return el.getBoundingClientRect().top + window.scrollY;
-      }
-
       function updateFromScroll() {
-        const probe = window.scrollY + scrollOffset + 2;
+        if (navLock) return;
+        const line = scrollMargin();
         let current = sections[0].id;
         for (const el of sections) {
-          if (headingDocTop(el) <= probe) current = el.id;
+          if (el.getBoundingClientRect().top <= line + SLACK) current = el.id;
         }
         setActive(current);
       }
 
       function syncFromHash() {
         const id = decodeURIComponent(location.hash.replace(/^#/, ''));
-        if (id && sections.some((el) => el.id === id)) setActive(id);
-        else updateFromScroll();
+        if (id && sections.some((el) => el.id === id)) {
+          setActive(id);
+          return;
+        }
+        updateFromScroll();
+      }
+
+      function releaseNavLock() {
+        navLock = null;
+        syncFromHash();
       }
 
       links.forEach((a) => {
         a.addEventListener('click', () => {
           const id = a.dataset.tocSlug;
-          if (id) {
-            setActive(id);
-            requestAnimationFrame(() => {
-              requestAnimationFrame(updateFromScroll);
-            });
+          if (!id) return;
+          navLock = id;
+          setActive(id);
+          if (!('onscrollend' in window)) {
+            setTimeout(releaseNavLock, 500);
           }
         });
       });
 
-      addEventListener('hashchange', syncFromHash);
+      addEventListener('hashchange', () => {
+        navLock = null;
+        syncFromHash();
+      });
+
+      if ('onscrollend' in window) {
+        addEventListener('scrollend', () => {
+          if (navLock) releaseNavLock();
+          else updateFromScroll();
+        });
+      }
 
       let ticking = false;
       addEventListener(
