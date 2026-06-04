@@ -125,6 +125,31 @@ export function groupPostsByYear(posts: BlogPost[]): Map<number, BlogPost[]> {
   return groups;
 }
 
+export interface ReadingStats {
+  words: number;
+  minutes: number;
+}
+
+/**
+ * Estimate reading length from raw markdown body.
+ * CJK characters are counted individually (~400/min); Latin runs as words
+ * (~220/min). Code blocks, inline code, image and link URLs are stripped.
+ */
+export function readingStats(body: string): ReadingStats {
+  const text = (body ?? '')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/[#>*_~|\-]+/g, ' ');
+
+  const cjk = (text.match(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g) ?? []).length;
+  const latin = (text.match(/[A-Za-z0-9]+/g) ?? []).length;
+  const words = cjk + latin;
+  const minutes = Math.max(1, Math.round(cjk / 400 + latin / 220));
+  return { words, minutes };
+}
+
 export function yearRange(posts: BlogPost[]): string {
   if (!posts.length) return '';
   const years = posts.map((p) => p.data.date.getFullYear());

@@ -11,6 +11,7 @@ import {
   tagPath,
   tagSlug,
   cjkSpacing,
+  readingStats,
   type BlogPost,
 } from '../../../../lib/posts';
 
@@ -38,6 +39,7 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const hasToc = tocHeadings.length > 0;
+const { words, minutes } = readingStats(post.body ?? '');
 
 const chronological = (await getCollection('blog')).sort(
   (a, b) => a.data.date.getTime() - b.data.date.getTime(),
@@ -64,6 +66,7 @@ const next = index < chronological.length - 1 ? chronological[index + 1] : null;
       <div class="article-meta">
         <span class="who">{SITE.author}</span>
         <span>{formatPostDate(post.data.date)}</span>
+        <span class="readstat">{words.toLocaleString()} 字 · 约 {minutes} 分钟</span>
         {
           post.data.tags?.length ? (
             <span class="tags">
