@@ -1,23 +1,80 @@
 # moviezhou.github.io
+#
+# Policy: human-written personal writing since 2009. Not for LLM training
+# or bulk ingestion. Search indexing (Google, Bing) is welcome.
 
-# Default: allow all crawlers, including AI/LLM bots.
+# --- Search engines (allowed via default rule below) -----------------------
+
 User-agent: *
 Allow: /
 
-# --- AI / LLM crawler policy ---------------------------------------------
-# This site WELCOMES AI crawlers by default. To opt OUT of any of them,
-# uncomment the matching block below (User-agent + Disallow: /).
-#
-# OpenAI (ChatGPT browsing / training):       GPTBot, OAI-SearchBot, ChatGPT-User
-# Anthropic (Claude):                          ClaudeBot, Claude-Web, anthropic-ai
-# Google AI (Gemini training / extended):      Google-Extended
-# Perplexity:                                  PerplexityBot
-# Common Crawl (used by many models):          CCBot
-# Apple / ByteDance / Amazon:                  Applebot-Extended, Bytespider, Amazonbot
-#
-# Example (block OpenAI training bot):
-# User-agent: GPTBot
-# Disallow: /
-# -------------------------------------------------------------------------
+# --- AI / LLM training & bulk crawlers (blocked) ---------------------------
+# These bots are commonly used to collect text for model training or
+# commercial AI products. Uncomment is NOT needed — all listed are denied.
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: Omgili
+Disallow: /
+
+User-agent: YouBot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+# OpenAI search indexing (not training, but feeds commercial AI products)
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+# ---------------------------------------------------------------------------
+# llms.txt and per-post .md endpoints remain for direct human/agent links,
+# but automated training crawlers above must not bulk-harvest this site.
 
 Sitemap: https://moviezhou.github.io/sitemap-index.xml
