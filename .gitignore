@@ -3,3 +3,4 @@ dist/
 .astro/
 .playwright-mcp/
 mobile-*.jpeg
+.claude/

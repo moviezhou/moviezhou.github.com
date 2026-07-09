@@ -8,6 +8,9 @@ import { collectTags, publishedPosts, tagPath, cjkSpacing } from '../../lib/post
 
 const posts = publishedPosts(await getCollection('blog'));
 const tags = collectTags(posts);
+const PRIMARY_THRESHOLD = 2;
+const primary = tags.filter((t) => t.count >= PRIMARY_THRESHOLD);
+const rare = tags.filter((t) => t.count < PRIMARY_THRESHOLD);
 ---
 
 <BaseLayout
@@ -19,20 +22,72 @@ const tags = collectTags(posts);
   <main class="reading">
     <PageHeader title="Tags" subtitle={`${tags.length} topics · ${posts.length} entries`} />
 
-    {
-      tags.length ? (
+    {tags.length === 0 ? (
+      <p class="empty-state">还没有标签。给文章加上 tags 后会自动出现在这里。</p>
+    ) : (
+      <div class="tag-section">
         <div class="tag-cloud">
-          {tags.map((tag) => (
+          {primary.map((tag) => (
             <a class="tag-chip" href={tagPath(tag.slug)}>
               <span class="label">{cjkSpacing(tag.label)}</span>
               <span class="count">{tag.count}</span>
             </a>
           ))}
         </div>
-      ) : (
-        <p class="empty-state">还没有标签。给文章加上 tags 后会自动出现在这里。</p>
-      )
-    }
+
+        {rare.length > 0 && (
+          <details class="tag-rare">
+            <summary class="tag-rare__toggle mono">
+              {rare.length} more tags with a single entry
+            </summary>
+            <div class="tag-cloud tag-cloud--rare">
+              {rare.map((tag) => (
+                <a class="tag-chip tag-chip--rare" href={tagPath(tag.slug)}>
+                  <span class="label">{cjkSpacing(tag.label)}</span>
+                  <span class="count">{tag.count}</span>
+                </a>
+              ))}
+            </div>
+          </details>
+        )}
+      </div>
+    )}
   </main>
   <Footer slot="footer" />
 </BaseLayout>
+
+<style>
+  .tag-rare {
+    max-width: var(--read-measure);
+    margin-top: 32px;
+  }
+  .tag-rare__toggle {
+    cursor: pointer;
+    padding: 12px 0;
+    border-top: 1px solid var(--line-soft);
+    list-style: none;
+    user-select: none;
+  }
+  .tag-rare__toggle::-webkit-details-marker {
+    display: none;
+  }
+  .tag-rare__toggle::after {
+    content: '+';
+    float: right;
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+  .tag-rare[open] .tag-rare__toggle::after {
+    content: '−';
+  }
+  .tag-cloud--rare {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .tag-chip--rare {
+    opacity: 0.7;
+  }
+  .tag-chip--rare:hover {
+    opacity: 1;
+  }
+</style>

@@ -12,6 +12,7 @@ import {
   publishedPosts,
   tagSlug,
   cjkSpacing,
+  normaliseTag,
   type BlogPost,
 } from '../../lib/posts';
 
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
 
   for (const post of posts) {
     for (const tag of post.data.tags ?? []) {
-      const label = tag.trim();
+      const label = normaliseTag(tag);
       if (label) labels.add(label);
     }
   }

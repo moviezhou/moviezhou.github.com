@@ -6,6 +6,7 @@ import {
   postMarkdownPath,
   publishedPosts,
   isoDate,
+  normaliseTag,
 } from '../lib/posts';
 
 export const GET: APIRoute = async ({ site }) => {
@@ -18,7 +19,8 @@ export const GET: APIRoute = async ({ site }) => {
 
   const postLines = posts.map((post) => {
     const md = abs(postMarkdownPath(post));
-    const tags = post.data.tags?.length ? ` (${post.data.tags.join(', ')})` : '';
+    const normTags = (post.data.tags ?? []).map(normaliseTag);
+    const tags = normTags.length ? ` (${normTags.join(', ')})` : '';
     return `- [${post.data.title}](${md}): ${isoDate(post.data.date)}${tags}`;
   });
 
