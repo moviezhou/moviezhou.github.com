@@ -13,7 +13,7 @@ export const SITE = {
   description:
     'moviezhou 的个人博客 · 随笔、诗歌、影评 · since 2009',
   since: 2009,
-  url: 'https://moviezhou.github.io',
+  url: process.env.ASTRO_SITE_URL ?? 'https://moviezhou.pages.dev',
 };
 
 export type BlogPost = CollectionEntry<'blog'>;

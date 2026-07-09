@@ -23,7 +23,7 @@ const {
   jsonLd,
 } = Astro.props;
 
-const site = Astro.site ?? new URL('https://moviezhou.github.io');
+const site = Astro.site ?? new URL(process.env.ASTRO_SITE_URL ?? 'https://moviezhou.pages.dev');
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, site);
 const fullTitle = title === "What's Eating Gilbert Grape" ? title : `${title} — moviezhou`;
 

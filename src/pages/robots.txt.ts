@@ -1,4 +1,9 @@
-# moviezhou.github.io
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = async ({ site }) => {
+  const origin = site?.origin ?? 'https://moviezhou.pages.dev';
+
+  const text = `# ${origin}
 #
 # Policy: human-written personal writing since 2009. Not for LLM training
 # or bulk ingestion. Search indexing (Google, Bing) is welcome.
@@ -10,7 +15,7 @@ Allow: /
 
 # --- AI / LLM training & bulk crawlers (blocked) ---------------------------
 # These bots are commonly used to collect text for model training or
-# commercial AI products. Uncomment is NOT needed — all listed are denied.
+# commercial AI products. Uncomment is NOT needed - all listed are denied.
 
 User-agent: GPTBot
 Disallow: /
@@ -77,4 +82,12 @@ Disallow: /
 # llms.txt and per-post .md endpoints remain for direct human/agent links,
 # but automated training crawlers above must not bulk-harvest this site.
 
-Sitemap: https://moviezhou.github.io/sitemap-index.xml
+Sitemap: ${origin}/sitemap-index.xml
+`;
+
+  return new Response(text, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+    },
+  });
+};

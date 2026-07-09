@@ -21,7 +21,7 @@ function walk(node, visit) {
 }
 
 export default defineConfig({
-  site: 'https://moviezhou.github.io',
+  site: process.env.ASTRO_SITE_URL ?? 'https://moviezhou.pages.dev',
   output: 'static',
   compressHTML: true,
   build: {

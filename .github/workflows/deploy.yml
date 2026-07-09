@@ -1,22 +1,16 @@
-name: Deploy Astro site
+name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [refactor-astro, master]
+    branches: [master]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -26,17 +20,12 @@ jobs:
       - run: npm ci
       - run: npm run migrate
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v5
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
         with:
-          path: dist
-          include-hidden-files: true
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: moviezhou
+          directory: dist
+          # Optional: set custom domain URL at build time
+          # envVarASTRO_SITE_URL: https://moviezhou.pages.dev

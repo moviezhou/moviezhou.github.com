@@ -1,0 +1,11 @@
+# Cloudflare Pages build configuration
+# This file is used when Cloudflare Pages builds from Git directly.
+# Alternatively, GitHub Actions can trigger deployment via the
+# cloudflare/pages-action.
+
+name = "moviezhou"
+compatibility_date = "2026-07-09"
+pages_build_output_dir = "dist"
+
+[build]
+command = "npm ci && npm run migrate && npm run build"

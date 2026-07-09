@@ -10,7 +10,7 @@ export async function GET(context: { site: URL | undefined }) {
   return rss({
     title: SITE.name,
     description: SITE.description,
-    site: context.site ?? 'https://moviezhou.github.io',
+    site: context.site ?? (process.env.ASTRO_SITE_URL ?? 'https://moviezhou.pages.dev'),
     items: posts.map((post) => ({
       title: cjkSpacing(post.data.title),
       pubDate: post.data.date,
