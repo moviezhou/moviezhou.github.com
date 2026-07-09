@@ -128,5 +128,7 @@ const jsonLdText = jsonLd
       document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
     </script>
     <slot name="scripts" />
+    <!-- Cloudflare Web Analytics -->
+    <script defer is:inline src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9c6fa7694a8942b8b50d29b090600656"}'></script>
   </body>
 </html>
